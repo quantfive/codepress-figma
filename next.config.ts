@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     swcPlugins: [
       // Use the SWC plugin
       createSWCPlugin({
-        repo_name: "quantfive/codepress-editable",
+        repo_name: "quantfive/codepress-figma",
       }),
     ],
   },
