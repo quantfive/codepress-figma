@@ -54,10 +54,7 @@ export function CodePressEditor() {
     return null;
   }
 
-  const tokenProvider = async () => {
-    // You can add authentication token logic here if needed
-    return null;
-  };
+  const tokenProvider = async () => process.env.NEXT_PUBLIC_DEMO_USER_JWT ?? null;
 
   return (
     <EditorComponent
