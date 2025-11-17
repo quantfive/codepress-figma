@@ -7,6 +7,7 @@ declare module "@quantfive/codepress-browser-extension" {
     useShadow?: boolean;
     apiBaseUrl?: string;
     protectedBranches?: string[];
+    demo?: boolean;
   }
 
   export const CodePressEditor: ComponentType<CodePressEditorProps>;

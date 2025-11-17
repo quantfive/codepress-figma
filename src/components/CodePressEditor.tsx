@@ -60,6 +60,7 @@ export function CodePressEditor() {
     <EditorComponent
       tokenProvider={tokenProvider}
       useShadow={true}
+      demo={true}
       apiBaseUrl={CODEPRESS_EDITOR_API_BASE_URL}
       protectedBranches={["main"]}
     />
