@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-const CODEPRESS_EDITOR_API_BASE_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://api.codepress.dev/v1"
-    : "http://localhost:8007/v1";
+// For the public Figma demo, proxy all editor API requests through
+// a Next.js API route so that the demo user's JWT never reaches
+// the browser. The API route adds authentication server-side.
+const CODEPRESS_EDITOR_API_BASE_URL = "/api/codepress-editor/v1";
 
 type EditorType =
   typeof import("@quantfive/codepress-browser-extension")["CodePressEditor"];
@@ -54,7 +54,10 @@ export function CodePressEditor() {
     return null;
   }
 
-  const tokenProvider = async () => process.env.NEXT_PUBLIC_DEMO_USER_JWT ?? null;
+  // In the Figma demo we authenticate as a fixed demo user on the server
+  // via the `/api/codepress-editor` proxy, so the client does not need
+  // to hold a JWT at all.
+  const tokenProvider = async () => null;
 
   return (
     <EditorComponent
