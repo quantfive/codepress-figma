@@ -6,6 +6,11 @@ declare module "@quantfive/codepress-browser-extension" {
     autoSaveToCurrentBranch?: boolean;
     useShadow?: boolean;
     apiBaseUrl?: string;
+    /**
+     * Optional WebSocket base URL. When provided, this is used for agent
+     * WebSocket connections instead of deriving the WS URL from apiBaseUrl.
+     */
+    wsBaseUrl?: string;
     protectedBranches?: string[];
     demo?: boolean;
   }

@@ -5,6 +5,13 @@ import { useEffect, useState } from "react";
 // the browser. The API route adds authentication server-side.
 const CODEPRESS_EDITOR_API_BASE_URL = "/api/codepress-editor/v1";
 
+// WebSocket connections do not go through the Next.js proxy (which does
+// not support upgrades). Instead, they connect directly to the backend.
+const CODEPRESS_EDITOR_WS_BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://api.codepress.dev/v1"
+    : "http://localhost:8007/v1";
+
 type EditorType =
   typeof import("@quantfive/codepress-browser-extension")["CodePressEditor"];
 
@@ -62,6 +69,7 @@ export function CodePressEditor() {
   return (
     <EditorComponent
       tokenProvider={tokenProvider}
+      wsBaseUrl={CODEPRESS_EDITOR_WS_BASE_URL}
       useShadow={true}
       demo={true}
       apiBaseUrl={CODEPRESS_EDITOR_API_BASE_URL}
