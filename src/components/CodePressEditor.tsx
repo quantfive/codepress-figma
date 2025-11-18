@@ -73,7 +73,6 @@ export function CodePressEditor() {
       useShadow={true}
       demo={true}
       apiBaseUrl={CODEPRESS_EDITOR_API_BASE_URL}
-      protectedBranches={["main"]}
     />
   );
 }

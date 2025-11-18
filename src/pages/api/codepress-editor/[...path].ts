@@ -21,13 +21,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const demoToken = process.env.CODEPRESS_DEMO_USER_JWT;
-
-  if (!demoToken) {
-    res.status(500).json({
-      error: "Demo is not configured. Missing CODEPRESS_DEMO_USER_JWT.",
-    });
-    return;
-  }
+  const useDemoAuth = Boolean(demoToken);
 
   const { path: rawPath, ...restQuery } = req.query;
   const path = Array.isArray(rawPath) ? rawPath.join("/") : rawPath || "";
@@ -53,12 +47,14 @@ export default async function handler(
 
   const headers = new Headers();
 
-  // Forward most incoming headers, but let the proxy control Authorization
-  // and Host to avoid leaking server details.
+  // Forward most incoming headers. When using the demo auth token we override
+  // any incoming Authorization header; otherwise we preserve whatever the
+  // client sent through.
   for (const [key, value] of Object.entries(req.headers)) {
     if (!value) continue;
     const lowerKey = key.toLowerCase();
-    if (lowerKey === "host" || lowerKey === "authorization") continue;
+    if (lowerKey === "host") continue;
+    if (useDemoAuth && lowerKey === "authorization") continue;
 
     if (Array.isArray(value)) {
       headers.set(key, value.join(","));
@@ -67,7 +63,9 @@ export default async function handler(
     }
   }
 
-  headers.set("authorization", `Bearer ${demoToken}`);
+  if (useDemoAuth) {
+    headers.set("authorization", `Bearer ${demoToken}`);
+  }
 
   let body: BodyInit | undefined;
   const method = (req.method || "GET").toUpperCase();
