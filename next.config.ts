@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
     ],
   },
   reactStrictMode: true,
+  transpilePackages: ["@quantfive/codepress-browser-extension"],
+  webpack: (config) => {
+    config.resolve.conditionNames = ["import", "module", "default"];
+    return config;
+  },
   images: {
     remotePatterns: [
       {

@@ -12,8 +12,8 @@ const CODEPRESS_EDITOR_WS_BASE_URL =
     ? "https://api.codepress.dev/v1"
     : "http://localhost:8007/v1";
 
-type EditorType =
-  typeof import("@quantfive/codepress-browser-extension")["CodePressEditor"];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type EditorType = any;
 
 export function CodePressEditor() {
   const [EditorComponent, setEditorComponent] = useState<EditorType | null>(

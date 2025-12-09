@@ -21,7 +21,7 @@ interface WaitlistModalProps {
 export default function WaitlistModal({
   open,
   onOpenChange,
-  source,
+  source, // eslint-disable-line @typescript-eslint/no-unused-vars
 }: WaitlistModalProps) {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
